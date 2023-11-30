@@ -10,7 +10,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject shield;
     private bool shieldReady = true;
     private bool capacitorReady = true;
-    public ParticleSystem capacitorParticle;
+    public GameObject capacitorToggle;
 
     // Start is called before the first frame update
     void Start()
@@ -55,13 +55,10 @@ public class PlayerControl : MonoBehaviour
         if (capacitorReady)
         {
             capacitorReady = false;
-            Debug.Log("Capacitor Active");
-            //capacitorParticle.SetActive(true);
+            capacitorToggle.SetActive(true);
             yield return new WaitForSeconds(2);
-            Debug.Log("Capacitor Deactivate");
-            //capacitorParticle.SetActive(false);
+            capacitorToggle.SetActive(false);
             yield return new WaitForSeconds(3);
-            Debug.Log("Capacitor Cooled Down");
             capacitorReady = true;
         }
     }
