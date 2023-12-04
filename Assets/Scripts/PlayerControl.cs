@@ -56,7 +56,7 @@ public class PlayerControl : MonoBehaviour
         {
             capacitorReady = false;
             capacitorToggle.SetActive(true);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             capacitorToggle.SetActive(false);
             yield return new WaitForSeconds(3);
             capacitorReady = true;
