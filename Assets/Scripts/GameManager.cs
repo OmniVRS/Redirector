@@ -21,9 +21,24 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void shieldCooldown()
+    {
+        StartCoroutine(shieldCooldownCoroutine());
+    }
+    
     public void capacitorCooldown()
     {
         StartCoroutine(capacitorCooldownCoroutine());
+    }
+
+    IEnumerator shieldCooldownCoroutine()
+    {
+        shieldImage.fillAmount = 0;
+        while (shieldImage.fillAmount < 1)
+        {
+            shieldImage.fillAmount += 1 / cooldown * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator capacitorCooldownCoroutine()

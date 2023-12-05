@@ -47,6 +47,7 @@ public class PlayerControl : MonoBehaviour
             shield.SetActive(true);
             yield return new WaitForSeconds(2);
             shield.SetActive(false);
+            gameManager.shieldCooldown();
             yield return new WaitForSeconds(cooldown);
             shieldReady = true;
         }
