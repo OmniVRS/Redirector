@@ -11,11 +11,13 @@ public class PlayerControl : MonoBehaviour
     private bool shieldReady = true;
     private bool capacitorReady = true;
     public GameObject capacitorToggle;
+    public static float cooldown = 3;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class PlayerControl : MonoBehaviour
             shield.SetActive(true);
             yield return new WaitForSeconds(2);
             shield.SetActive(false);
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(cooldown);
             shieldReady = true;
         }
     }
@@ -58,7 +60,8 @@ public class PlayerControl : MonoBehaviour
             capacitorToggle.SetActive(true);
             yield return new WaitForSeconds(3);
             capacitorToggle.SetActive(false);
-            yield return new WaitForSeconds(3);
+            gameManager.capacitorCooldown();
+            yield return new WaitForSeconds(cooldown);
             capacitorReady = true;
         }
     }
