@@ -7,12 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public Image shieldImage;
     public Image capacitorImage;
-    private float cooldown;
+    private float reflectCooldown;
+    private float absorbCooldown;
 
     // Start is called before the first frame update
     void Start()
     {
-        cooldown = PlayerControl.cooldown;
+        reflectCooldown = PlayerControl.shieldCooldown;
+        absorbCooldown = PlayerControl.capacitorCooldown;
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
         shieldImage.fillAmount = 0;
         while (shieldImage.fillAmount < 1)
         {
-            shieldImage.fillAmount += 1 / cooldown * Time.deltaTime;
+            shieldImage.fillAmount += 1 / reflectCooldown * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
     }
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
         capacitorImage.fillAmount = 0;
         while (capacitorImage.fillAmount < 1)
         {
-            capacitorImage.fillAmount += 1 / cooldown * Time.deltaTime;
+            capacitorImage.fillAmount += 1 / absorbCooldown * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
     }

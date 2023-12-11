@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -11,6 +13,9 @@ public class RocketShooterAI : MonoBehaviour
     private float speed = 30;
     private int randomXDirection;
     private float randomMoveTime = 1;
+    public GameObject missilePrefab;
+    public List<GameObject> rocketChildren;
+    public GameObject spawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +24,9 @@ public class RocketShooterAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        clearList();
     }
 
     IEnumerator MoveDown()
@@ -47,6 +52,7 @@ public class RocketShooterAI : MonoBehaviour
     IEnumerator RandomHorizMove()
     {
         yield return new WaitForSeconds(1);
+        ShootRocket();
         MoveGenerator();
         isStrafing = true;
         StartCoroutine(MovementDuration());
@@ -73,5 +79,35 @@ public class RocketShooterAI : MonoBehaviour
         randomXDirection = Random.Range(0, 2);
         randomMoveTime = Random.Range(0f, 3f);
         //Debug.Log($"Move time is: {randomMoveTime} seconds. Random direction is: {randomXDirection}");
+    }
+
+    private void ShootRocket()
+    {
+        if (rocketChildren.Count == 0)
+        {
+            GameObject thisMissile = Instantiate(missilePrefab, spawnPoint.transform.position, missilePrefab.transform.rotation);
+            thisMissile.GetComponent<MissileBehavior>().sender = this.gameObject;
+            rocketChildren.Add(thisMissile.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Kills Player"))
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void clearList()
+    {
+        foreach(GameObject rocket in rocketChildren)
+        {
+            if(rocket==null)
+            {
+                rocketChildren.Remove(rocket);
+            }
+        }
     }
 }

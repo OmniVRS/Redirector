@@ -11,8 +11,10 @@ public class PlayerControl : MonoBehaviour
     private bool shieldReady = true;
     private bool capacitorReady = true;
     public GameObject capacitorToggle;
-    public static float cooldown = 3;
+    public static float shieldCooldown = 2;
+    public static float capacitorCooldown = 3;
     private GameManager gameManager;
+    private bool reflecting;
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +47,12 @@ public class PlayerControl : MonoBehaviour
         {
             shieldReady = false;
             shield.SetActive(true);
+            reflecting = true;
             yield return new WaitForSeconds(2);
             shield.SetActive(false);
+            reflecting = false;
             gameManager.shieldCooldown();
-            yield return new WaitForSeconds(cooldown);
+            yield return new WaitForSeconds(shieldCooldown);
             shieldReady = true;
         }
     }
@@ -62,8 +66,20 @@ public class PlayerControl : MonoBehaviour
             yield return new WaitForSeconds(3);
             capacitorToggle.SetActive(false);
             gameManager.capacitorCooldown();
-            yield return new WaitForSeconds(cooldown);
+            yield return new WaitForSeconds(capacitorCooldown);
             capacitorReady = true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Kills Player"))
+        {
+            if (!reflecting)
+            {
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
+            }
         }
     }
 }

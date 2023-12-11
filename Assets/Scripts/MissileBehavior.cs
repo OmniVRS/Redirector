@@ -7,8 +7,10 @@ public class MissileBehavior : MonoBehaviour
     public GameObject sender;
     private Rigidbody rb;
     private GameObject player;
-    private float speed = 10;
+    private float speed = 0.5f;
     private Vector3 targetLost;
+    private bool dumbLock = false;
+    private bool reflected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,20 +23,48 @@ public class MissileBehavior : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (transform.position.z > 10)
-        {
-            rb.AddForce((player.transform.position - transform.position).normalized * speed);
-            //transform.LookAt(player.transform.position);
-        }
+         if (transform.position.z > 10 && !reflected && player != null)
+         {
+             transform.Translate((player.transform.position - transform.position).normalized * speed);
+             //transform.LookAt(player.transform.position);
+         }
 
-        if (transform.position.z < 10)
+         if (transform.position.z < 10 && !dumbLock && !reflected && player != null)
+         {
+             SetDumbTarget();
+             dumbLock = true;
+         }
+
+         if (transform.position.z < 10 && !reflected || player == null)
+         {
+             rb.transform.Translate(targetLost * speed);
+         }
+
+         if (reflected)
+         {
+            transform.Translate((sender.transform.position - transform.position).normalized * speed);
+            //transform.LookAt(sender.transform.position);
+         }
+
+         if (transform.position.z < -30)
+         {
+            Destroy(gameObject);
+         }
+    }
+
+    private void SetDumbTarget()
+    {
+        targetLost = (player.transform.position - transform.position).normalized;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Reflective"))
         {
-            targetLost = (player.transform.position - transform.position).normalized;
-        }
-        
-        if (transform.position.z < 10)
-        {
-            rb.AddForce(targetLost * speed);
+            reflected = true;
+            //Debug.Log("I have been reflected!");
         }
     }
 }
+
+
