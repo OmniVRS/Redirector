@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2801918335773412197}
   - component: {fileID: 2801918335773412194}
   - component: {fileID: 2801918335773412201}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: _Rocket_
   m_TagString: Kills Player
   m_Icon: {fileID: 0}
