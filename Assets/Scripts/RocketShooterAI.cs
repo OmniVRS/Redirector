@@ -102,11 +102,14 @@ public class RocketShooterAI : MonoBehaviour
 
     private void clearList()
     {
-        foreach(GameObject rocket in rocketChildren)
+        if (rocketChildren.Count > 0 && rocketChildren != null)
         {
-            if(rocket==null)
+            for (int i = 0; i < rocketChildren.Count; i++)
             {
-                rocketChildren.Remove(rocket);
+                if (rocketChildren[i] == null) 
+                {
+                    rocketChildren.RemoveAt(i);
+                }
             }
         }
     }

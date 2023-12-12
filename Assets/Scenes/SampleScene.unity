@@ -6861,6 +6861,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8043444176897517134, guid: ee3c526a5875fdf47b11e3c2f2580b01,
+        type: 3}
+      propertyPath: rocketChildren.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8043444176897517172, guid: ee3c526a5875fdf47b11e3c2f2580b01,
         type: 3}
       propertyPath: m_Name
