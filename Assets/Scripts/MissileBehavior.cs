@@ -62,6 +62,7 @@ public class MissileBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("Reflective"))
         {
             reflected = true;
+            speed = 1;
             //Debug.Log("I have been reflected!");
         }
     }

@@ -8,7 +8,6 @@ using UnityEngine;
 public class RocketShooterAI : MonoBehaviour
 {
     private float downSpeed = 50;
-    private bool isMovingDown = true;
     private bool isStrafing;
     private float speed = 30;
     private int randomXDirection;
@@ -16,6 +15,7 @@ public class RocketShooterAI : MonoBehaviour
     public GameObject missilePrefab;
     public List<GameObject> rocketChildren;
     public GameObject spawnPoint;
+    private bool down = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,20 +31,23 @@ public class RocketShooterAI : MonoBehaviour
 
     IEnumerator MoveDown()
     {
-        StartCoroutine(MovementDuration());
-        while (isMovingDown)
+        while (transform.position.z > 50)
         {
             transform.Translate(Vector3.back * downSpeed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
         
+        if (transform.position.z <= 50 && !down) 
+        {
+            down = true;
+            StartCoroutine(RandomHorizMove());
+        }
     }
 
     IEnumerator MovementDuration()
     {
         //Debug.Log("I have a duration!");
         yield return new WaitForSeconds(randomMoveTime);
-        isMovingDown = false;
         isStrafing = false;
         StartCoroutine(RandomHorizMove());
     }
@@ -95,8 +98,12 @@ public class RocketShooterAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Kills Player"))
         {
-            Destroy(gameObject);
+            for (int i = 0; i < rocketChildren.Count; i++)
+            {
+                Destroy(rocketChildren[i]);
+            }
             Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
     }
 
