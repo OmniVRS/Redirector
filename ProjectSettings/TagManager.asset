@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Kills Player
   - Reflective
+  - Absorbant
   layers:
   - Default
   - TransparentFX

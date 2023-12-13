@@ -15,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     public static float capacitorCooldown = 3;
     private GameManager gameManager;
     private bool reflecting;
+    private bool absorbing;
 
     // Start is called before the first frame update
     void Start()
@@ -63,8 +64,10 @@ public class PlayerControl : MonoBehaviour
         {
             capacitorReady = false;
             capacitorToggle.SetActive(true);
+            absorbing = true;
             yield return new WaitForSeconds(3);
             capacitorToggle.SetActive(false);
+            absorbing = false;
             gameManager.capacitorCooldown();
             yield return new WaitForSeconds(capacitorCooldown);
             capacitorReady = true;
@@ -75,10 +78,22 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Kills Player"))
         {
-            if (!reflecting)
+            if (collision.gameObject.layer == 7)
             {
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
+                if (!reflecting)
+                {
+                    Destroy(collision.gameObject);
+                    Destroy(gameObject);
+                }
+            }
+
+            if (collision.gameObject.layer == 8)
+            {
+                if (!absorbing)
+                {
+                    Destroy(collision.gameObject);
+                    Destroy(gameObject);   
+                }
             }
         }
     }
