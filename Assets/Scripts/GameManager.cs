@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Image capacitorImage;
     private float reflectCooldown;
     private float absorbCooldown;
+    public List<GameObject> spawnPoints;
 
     // Start is called before the first frame update
     void Start()
