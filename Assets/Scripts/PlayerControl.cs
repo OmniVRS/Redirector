@@ -17,6 +17,8 @@ public class PlayerControl : MonoBehaviour
     private bool reflecting;
     private bool absorbing;
     private int laserAmmo;
+    public GameObject laserPrefab;
+    public GameObject laserSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,12 @@ public class PlayerControl : MonoBehaviour
         {
             StartCoroutine(LaserAbsorb());
         }
+       
+        if (Input.GetButtonDown("Player Laser"))
+        {
+            PlayerLaser();
+        }
+        
     }
 
     void FixedUpdate()
@@ -88,7 +96,7 @@ public class PlayerControl : MonoBehaviour
                 }
             }
 
-            if (collision.gameObject.layer == 8)
+            if (collision.gameObject.layer == 8 && !collision.gameObject.GetComponent<LaserBehavior>().playerShot)
             {
                 if (!absorbing)
                 {
@@ -102,6 +110,17 @@ public class PlayerControl : MonoBehaviour
                     laserAmmo += 1;
                 }
             }
+        }
+    }
+
+    void PlayerLaser()
+    {
+        if (laserAmmo > 0)
+        {
+            laserAmmo -= 1;
+            GameObject thisLaser = Instantiate(laserPrefab, laserSpawn.transform.position, laserPrefab.transform.rotation);
+            thisLaser.GetComponent<LaserBehavior>().playerShot = true;
+            thisLaser.GetComponent<LaserBehavior>().speed = 3;
         }
     }
 }

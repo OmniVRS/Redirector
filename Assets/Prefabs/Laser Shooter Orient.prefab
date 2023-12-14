@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1750788468999854749}
   - component: {fileID: 1750788468999854746}
   - component: {fileID: 1750788468999854747}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Laser Shooter Orient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1750788469577289525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: laserSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,6 +205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: craft_miner
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 754a934d16bb2fa449defcf6526e3fdb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 754a934d16bb2fa449defcf6526e3fdb, type: 3}

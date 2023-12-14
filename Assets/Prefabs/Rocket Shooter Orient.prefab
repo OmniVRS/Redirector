@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8457270669784382286}
   - component: {fileID: 8045292842404964373}
   - component: {fileID: 7369461650103605342}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket Shooter Orient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527af4e67f2637b4cb42bb96dc34e1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 2801918335773412195, guid: e37f584e9591f244c9b6f53bebe17bb8,
+  missilePrefab: {fileID: 7305735842690865073, guid: 4ccbf0c049eaa1e49acf5edfed6ab99e,
     type: 3}
   rocketChildren: []
   spawnPoint: {fileID: 4563066077571529440}
@@ -206,6 +206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: craft_cargoB
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 282cc23ce3c63034c917f132970ee190,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 282cc23ce3c63034c917f132970ee190, type: 3}

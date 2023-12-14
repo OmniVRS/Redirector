@@ -75,5 +75,14 @@ public class LaserShooterAI : MonoBehaviour
         Instantiate(laserPrefab, spawnPoint.transform.position, laserPrefab.transform.rotation);
         StartCoroutine(MoveToPlayer());
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Kills Player"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
 }
 

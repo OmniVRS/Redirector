@@ -10,7 +10,8 @@ public class MissileBehavior : MonoBehaviour
     private float speed = 0.5f;
     private Vector3 targetLost;
     private bool dumbLock = false;
-    private bool reflected = false;
+    public bool reflected = false;
+    private bool rotated;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +43,13 @@ public class MissileBehavior : MonoBehaviour
 
          if (reflected)
          {
-            transform.Translate((sender.transform.position - transform.position).normalized * speed);
+            transform.Translate(-(sender.transform.position - transform.position).normalized * speed);
             //transform.LookAt(sender.transform.position);
+            if (!rotated)
+            {
+                rotated = true;
+                transform.Rotate(0, 180, 0);
+            }
          }
 
          if (transform.position.z < -30)
