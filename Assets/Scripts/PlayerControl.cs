@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     private GameManager gameManager;
     private bool reflecting;
     private bool absorbing;
+    private int laserAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +66,7 @@ public class PlayerControl : MonoBehaviour
             capacitorReady = false;
             capacitorToggle.SetActive(true);
             absorbing = true;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2f);
             capacitorToggle.SetActive(false);
             absorbing = false;
             gameManager.capacitorCooldown();
@@ -93,6 +94,12 @@ public class PlayerControl : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                     Destroy(gameObject);   
+                }
+
+                if (absorbing)
+                {
+                    Destroy(collision.gameObject);
+                    laserAmmo += 1;
                 }
             }
         }

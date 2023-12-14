@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4316339915557040420}
   - component: {fileID: 889432539929745324}
   - component: {fileID: -5486214888663600332}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: _Laser_
   m_TagString: Kills Player
   m_Icon: {fileID: 0}

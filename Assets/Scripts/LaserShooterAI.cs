@@ -6,7 +6,7 @@ public class LaserShooterAI : MonoBehaviour
 {
     private float downSpeed = 50;
     private GameObject player;
-    private float speed = 30;
+    private float speed = 60;
     private bool isStrafing = false;
     private bool down = false;
     public GameObject laserPrefab;
@@ -47,19 +47,19 @@ public class LaserShooterAI : MonoBehaviour
 
         while (isStrafing)
         {
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) <= 0.5f)
+            if (player != null && Mathf.Abs(player.transform.position.x - transform.position.x) <= 0.5f)
             {
                 isStrafing = false;
                 StartCoroutine(FireLaser());
             }
 
-            if (player.transform.position.x < transform.position.x)
+            if (player != null && player.transform.position.x < transform.position.x)
             {
                 transform.Translate(Vector3.left * speed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();   
             }
 
-            if (player.transform.position.x > transform.position.x)
+            if (player != null && player.transform.position.x > transform.position.x)
             {
                 transform.Translate(Vector3.right * speed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
@@ -71,7 +71,7 @@ public class LaserShooterAI : MonoBehaviour
     IEnumerator FireLaser()
     {
         //Debug.Log("Imma firin ma lasar!");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0);
         Instantiate(laserPrefab, spawnPoint.transform.position, laserPrefab.transform.rotation);
         StartCoroutine(MoveToPlayer());
     }
