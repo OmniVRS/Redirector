@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject laserSpawn;
     private AudioSource laserSound;
     public AudioClip laserClip;
+    public AudioClip absorbSound;
     public AudioClip megaLaserSound;
     private bool megaLaserFiring = false;
     public GameObject megaLaser;
@@ -32,6 +33,8 @@ public class PlayerControl : MonoBehaviour
     private bool charged = false;
     private bool empty = true;
     public TextMeshProUGUI ammoText;
+    public AudioClip shieldSound;
+    public AudioClip capacitorSound;
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +94,7 @@ public class PlayerControl : MonoBehaviour
             shieldReady = false;
             shield.SetActive(true);
             reflecting = true;
+            laserSound.PlayOneShot(shieldSound);
             yield return new WaitForSeconds(2);
             shield.SetActive(false);
             reflecting = false;
@@ -107,9 +111,11 @@ public class PlayerControl : MonoBehaviour
             capacitorReady = false;
             capacitorToggle.SetActive(true);
             absorbing = true;
+            laserSound.PlayOneShot(capacitorSound);
             yield return new WaitForSeconds(2f);
             capacitorToggle.SetActive(false);
             absorbing = false;
+            laserSound.Stop();
             gameManager.capacitorCooldown();
             yield return new WaitForSeconds(capacitorCooldown);
             capacitorReady = true;
@@ -147,6 +153,7 @@ public class PlayerControl : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                     laserAmmo += 1;
+                    laserSound.PlayOneShot(absorbSound);
                     gameManager.UpdateScore();
 
                     if (laserAmmo <= 4)

@@ -17,12 +17,15 @@ public class RocketShooterAI : MonoBehaviour
     public GameObject spawnPoint;
     private bool down = false;
     private GameManager gameManager;
+    private AudioSource audioSource;
+    public AudioClip rocketLaunch;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(MoveDown());
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -93,6 +96,7 @@ public class RocketShooterAI : MonoBehaviour
             GameObject thisMissile = Instantiate(missilePrefab, spawnPoint.transform.position, missilePrefab.transform.rotation);
             thisMissile.GetComponent<MissileBehavior>().sender = this.gameObject;
             rocketChildren.Add(thisMissile.gameObject);
+            audioSource.PlayOneShot(rocketLaunch);
         }
     }
 

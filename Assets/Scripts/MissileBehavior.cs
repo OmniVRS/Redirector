@@ -12,12 +12,15 @@ public class MissileBehavior : MonoBehaviour
     private bool dumbLock = false;
     public bool reflected = false;
     private bool rotated;
+    private AudioSource audioSource;
+    public AudioClip deflectSound;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player Ship");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,6 +52,7 @@ public class MissileBehavior : MonoBehaviour
             {
                 rotated = true;
                 transform.Rotate(0, 180, 0);
+                audioSource.PlayOneShot(deflectSound);
                 
             }
          }

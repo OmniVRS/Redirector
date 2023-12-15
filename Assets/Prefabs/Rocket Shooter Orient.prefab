@@ -85,6 +85,7 @@ MonoBehaviour:
     type: 3}
   rocketChildren: []
   spawnPoint: {fileID: 4563066077571529440}
+  rocketLaunch: {fileID: 8300000, guid: 8a9c977f8e54dd246893b171108f8527, type: 3}
 --- !u!114 &8457270669784382286
 MonoBehaviour:
   m_ObjectHideFlags: 0

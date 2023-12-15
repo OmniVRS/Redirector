@@ -286,6 +286,7 @@ MonoBehaviour:
     type: 3}
   laserSpawn: {fileID: 1644405127}
   laserClip: {fileID: 8300000, guid: d864260c8b5640f4fb5dc5d8362364fb, type: 3}
+  absorbSound: {fileID: 8300000, guid: 44cbc191f568ffd4ba54ca61c622730f, type: 3}
   megaLaserSound: {fileID: 8300000, guid: 510ed837afe28184fbc9befe36ef28c5, type: 3}
   megaLaser: {fileID: 1826219380}
   battery: {fileID: 83263734}
@@ -295,6 +296,8 @@ MonoBehaviour:
     type: 2}
   batteryMaterials: []
   ammoText: {fileID: 1750240497}
+  shieldSound: {fileID: 8300000, guid: a1531b5a45bc5c748847425e4c2561f8, type: 3}
+  capacitorSound: {fileID: 8300000, guid: 3528eb7cc7bf24244bf2c7435e65367d, type: 3}
 --- !u!114 &54992846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,7 +1598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &821554165
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1613,7 +1616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -280, y: 41}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &821554166
@@ -1636,7 +1639,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "    Start Game\n   R or Button 8"
+  m_text: "                                   Start Game\n                                 
+    R or Button 8\n\nControls:\na/d or stick: move\nspace/Button 0: shield (rockets)\nm/Button
+    1: capacitor (lasers)\nn/Button 2: player laser (mega laser at max ammo)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1699,7 +1704,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.668945, w: -73.48358}
+  m_margin: {x: 0, y: 0, z: -638.4087, w: -419.44257}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

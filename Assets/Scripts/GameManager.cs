@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
     private void ExitApp()
     {
         Application.Quit();
+        Debug.Log("Game Closed!");
     }
 
     public void GameOver()
