@@ -7,6 +7,7 @@ TagManager:
   - Kills Player
   - Reflective
   - Absorbant
+  - Enemy
   layers:
   - Default
   - TransparentFX

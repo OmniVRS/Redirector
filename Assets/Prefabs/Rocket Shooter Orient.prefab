@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 1172034025821535274}
   m_Layer: 6
   m_Name: Rocket Shooter Orient
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,6 @@ MonoBehaviour:
     type: 3}
   rocketChildren: []
   spawnPoint: {fileID: 4563066077571529440}
-  deathBoom: {fileID: 8300000, guid: 43e5dea222998844191ed9f7515fab54, type: 3}
 --- !u!114 &8457270669784382286
 MonoBehaviour:
   m_ObjectHideFlags: 0

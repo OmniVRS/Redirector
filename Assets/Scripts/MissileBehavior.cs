@@ -49,6 +49,7 @@ public class MissileBehavior : MonoBehaviour
             {
                 rotated = true;
                 transform.Rotate(0, 180, 0);
+                
             }
          }
 

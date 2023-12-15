@@ -126,6 +126,8 @@ public class PlayerControl : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                     gameManager.DeathSound();
+                    gameManager.gameOver = true;
+                    gameManager.GameOver();
                     Destroy(gameObject);
                 }
             }
@@ -135,6 +137,9 @@ public class PlayerControl : MonoBehaviour
                 if (!absorbing)
                 {
                     Destroy(collision.gameObject);
+                    gameManager.DeathSound();
+                    gameManager.gameOver = true;
+                    gameManager.GameOver();
                     Destroy(gameObject);   
                 }
 
@@ -142,7 +147,8 @@ public class PlayerControl : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                     laserAmmo += 1;
-                    
+                    gameManager.UpdateScore();
+
                     if (laserAmmo <= 4)
                     {
                         ammoText.text = $"Ammo: {laserAmmo}/5";

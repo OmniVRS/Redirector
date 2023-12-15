@@ -106,6 +106,7 @@ public class RocketShooterAI : MonoBehaviour
             }
             Destroy(collision.gameObject);
             gameManager.DeathSound();
+            gameManager.UpdateScore();
             Destroy(gameObject);
         }
     }
