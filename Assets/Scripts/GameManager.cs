@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
     private float absorbCooldown;
     public List<GameObject> spawnPoints;
     public GameObject player;
+    private AudioSource deathSource;
+    public AudioClip deathBoom;
 
     // Start is called before the first frame update
     void Start()
     {
+        deathSource = GetComponent<AudioSource>();
         reflectCooldown = PlayerControl.shieldCooldown;
         absorbCooldown = PlayerControl.capacitorCooldown;
     }
@@ -53,5 +56,10 @@ public class GameManager : MonoBehaviour
             capacitorImage.fillAmount += 1 / absorbCooldown * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void DeathSound()
+    {
+        deathSource.PlayOneShot(deathBoom);
     }
 }

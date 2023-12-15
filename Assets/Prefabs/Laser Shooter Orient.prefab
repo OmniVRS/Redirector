@@ -66,6 +66,7 @@ MonoBehaviour:
     type: 3}
   spawnPoint: {fileID: 1750788469577289522}
   laserClip: {fileID: 8300000, guid: e3ff6785cc7d2fa42a6d966c2e5bbd8d, type: 3}
+  deathBoom: {fileID: 8300000, guid: 43e5dea222998844191ed9f7515fab54, type: 3}
 --- !u!54 &1750788468999854746
 Rigidbody:
   m_ObjectHideFlags: 0

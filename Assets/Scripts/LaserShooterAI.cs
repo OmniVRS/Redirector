@@ -13,11 +13,13 @@ public class LaserShooterAI : MonoBehaviour
     public GameObject spawnPoint;
     private AudioSource laserSound;
     public AudioClip laserClip;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(MoveDown());
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         player = GameObject.Find("Player Ship");
         laserSound = GetComponent<AudioSource>();
     }
@@ -85,6 +87,7 @@ public class LaserShooterAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Kills Player"))
         {
             Destroy(collision.gameObject);
+            gameManager.DeathSound();
             Destroy(gameObject);
         }
     }

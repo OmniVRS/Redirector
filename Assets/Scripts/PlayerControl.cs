@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -30,6 +31,7 @@ public class PlayerControl : MonoBehaviour
     public Material[] batteryMaterials;
     private bool charged = false;
     private bool empty = true;
+    public TextMeshProUGUI ammoText;
 
     // Start is called before the first frame update
     void Start()
@@ -123,6 +125,7 @@ public class PlayerControl : MonoBehaviour
                 if (!reflecting)
                 {
                     Destroy(collision.gameObject);
+                    gameManager.DeathSound();
                     Destroy(gameObject);
                 }
             }
@@ -139,6 +142,16 @@ public class PlayerControl : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                     laserAmmo += 1;
+                    
+                    if (laserAmmo <= 4)
+                    {
+                        ammoText.text = $"Ammo: {laserAmmo}/5";
+                    }
+
+                    if (laserAmmo >= 5)
+                    {
+                        ammoText.text = $"Ammo: MEGA";
+                    }
                 }
             }
         }
@@ -153,6 +166,7 @@ public class PlayerControl : MonoBehaviour
             thisLaser.GetComponent<LaserBehavior>().playerShot = true;
             thisLaser.GetComponent<LaserBehavior>().speed = 3;
             laserSound.PlayOneShot(laserClip);
+            ammoText.text = $"Ammo: {laserAmmo}/5";
         }
         
         if (laserAmmo >= 5)
@@ -161,6 +175,7 @@ public class PlayerControl : MonoBehaviour
             megaLaserFiring = true;
             megaLaser.SetActive(true);
             laserSound.PlayOneShot(megaLaserSound);
+            ammoText.text = $"Ammo: {laserAmmo}/5";
             yield return new WaitForSeconds(2);
             megaLaserFiring = false;
             megaLaser.SetActive(false);

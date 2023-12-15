@@ -16,11 +16,13 @@ public class RocketShooterAI : MonoBehaviour
     public List<GameObject> rocketChildren;
     public GameObject spawnPoint;
     private bool down = false;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(MoveDown()); 
+        StartCoroutine(MoveDown());
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -103,6 +105,7 @@ public class RocketShooterAI : MonoBehaviour
                 Destroy(rocketChildren[i]);
             }
             Destroy(collision.gameObject);
+            gameManager.DeathSound();
             Destroy(gameObject);
         }
     }
