@@ -11,12 +11,15 @@ public class LaserShooterAI : MonoBehaviour
     private bool down = false;
     public GameObject laserPrefab;
     public GameObject spawnPoint;
+    private AudioSource laserSound;
+    public AudioClip laserClip;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(MoveDown());
         player = GameObject.Find("Player Ship");
+        laserSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -73,6 +76,7 @@ public class LaserShooterAI : MonoBehaviour
         //Debug.Log("Imma firin ma lasar!");
         yield return new WaitForSeconds(0);
         Instantiate(laserPrefab, spawnPoint.transform.position, laserPrefab.transform.rotation);
+        laserSound.PlayOneShot(laserClip);
         StartCoroutine(MoveToPlayer());
     }
 

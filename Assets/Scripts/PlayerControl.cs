@@ -19,11 +19,24 @@ public class PlayerControl : MonoBehaviour
     private int laserAmmo;
     public GameObject laserPrefab;
     public GameObject laserSpawn;
+    private AudioSource laserSound;
+    public AudioClip laserClip;
+    public AudioClip megaLaserSound;
+    private bool megaLaserFiring = false;
+    public GameObject megaLaser;
+    public GameObject battery;
+    public Material batteryMaterialCharged;
+    public Material batteryMaterialEmpty;
+    public Material[] batteryMaterials;
+    private bool charged = false;
+    private bool empty = true;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        laserSound = GetComponent<AudioSource>();
+        batteryMaterials = battery.GetComponent<Renderer>().materials;
     }
 
     // Update is called once per frame
@@ -40,7 +53,7 @@ public class PlayerControl : MonoBehaviour
        
         if (Input.GetButtonDown("Player Laser"))
         {
-            PlayerLaser();
+            StartCoroutine(PlayerLaser());
         }
         
     }
@@ -49,6 +62,24 @@ public class PlayerControl : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.left * horizontalInput * speed);
+
+        if (laserAmmo >= 5 && !megaLaserFiring && !charged)
+        {
+            charged = true;
+            batteryMaterials[1] = batteryMaterialCharged;
+            battery.GetComponent<Renderer>().materials = batteryMaterials;
+            empty = false;
+            //Debug.Log("Changed to charged");
+        }
+
+        if (megaLaserFiring && !empty)
+        {
+            empty = true;
+            batteryMaterials[1] = batteryMaterialEmpty;
+            battery.GetComponent<Renderer>().materials = batteryMaterials;
+            charged = false;
+            //Debug.Log("Changed to empty");
+        }
     }
 
     IEnumerator ReflectShield()
@@ -85,7 +116,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Kills Player"))
+        if (collision.gameObject.CompareTag("Kills Player") && !megaLaserFiring)
         {
             if (collision.gameObject.layer == 7)
             {
@@ -113,14 +144,27 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void PlayerLaser()
+    IEnumerator PlayerLaser()
     {
-        if (laserAmmo > 0)
+        if (laserAmmo > 0 && laserAmmo < 5)
         {
             laserAmmo -= 1;
             GameObject thisLaser = Instantiate(laserPrefab, laserSpawn.transform.position, laserPrefab.transform.rotation);
             thisLaser.GetComponent<LaserBehavior>().playerShot = true;
             thisLaser.GetComponent<LaserBehavior>().speed = 3;
+            laserSound.PlayOneShot(laserClip);
+        }
+        
+        if (laserAmmo >= 5)
+        {
+            laserAmmo = 0;
+            megaLaserFiring = true;
+            megaLaser.SetActive(true);
+            laserSound.PlayOneShot(megaLaserSound);
+            yield return new WaitForSeconds(2);
+            megaLaserFiring = false;
+            megaLaser.SetActive(false);
+            laserSound.Stop();
         }
     }
 }
